@@ -11,7 +11,7 @@ export default defineConfig({
   base: './',
   plugins: [
     vue(),
-    vuetify({ autoImport: true }),
+    vuetify({ autoImport: true })
   ],
   resolve: {
     alias: {
