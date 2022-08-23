@@ -28,14 +28,14 @@ v-dialog(v-model='openDialog' persistent)
       #productInfo(style="width: 100%; height: 75%;")
         h1.my-2 {{ product.name }}
         h2.my-1 $ : {{ product.price }}
-        h4(v-if='product.description.length > 0 && product.description !== "undefined"') 商品介紹 : 
+        h4(v-if='product.description.length > 0 && product.description !== "undefined"') 商品介紹 :
           p {{ product.description }}
         h4(v-else) 尚無商品介紹
       #productAction(style="width: 100%; height: 25%;")
     v-col.d-flex.justify-end.align-start(cols='1')
       v-btn(icon variant="text" size="x-small" @click="openDialog = false")
         v-icon mdi-close
-        
+
 </template>
 
 <script setup>
