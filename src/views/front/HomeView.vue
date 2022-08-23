@@ -2,17 +2,27 @@
 #home
 v-row(justify='center')
   v-col(cols='7')
-    v-carousel(hide-delimiters)
-      v-card-item(v-for='(item, i) in items' :key='i' :src='item.src' cover)
-
+    v-carousel
+      v-card-item(v-for='(item, i) in carousel' :key='i')
+        v-img(:src='item.src' cover)
+    v-divider
+    #indexProfile
+      v-card(width="200px" height="100px")
+        v-img(:src='`https://picsum.photos/500/300?image=1`' )
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 
-const items = reactive([
-  { src: '../images/index/carousel/carousel_01.webp' },
-  { src: '../images/index/carousel/carousel_02.webp' },
-  { src: '../images/index/carousel/carousel_03.jpg' }
+const carousel = reactive([
+  { src: 'https://picsum.photos/500/400?image=1' },
+  { src: 'https://picsum.photos/500/400?image=2' },
+  { src: 'https://picsum.photos/500/400?image=3' }
+])
+
+const profiles = reactive([
+  '../images/作品集/01.png',
+  '../images/作品集/02.png',
+  '../images/作品集/03.png'
 ])
 </script>

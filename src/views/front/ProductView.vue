@@ -22,8 +22,6 @@
         v-btn(color='black' type='submit') 加入購物車
       v-overlay.align-center.justify-center(:model-value='!product.sell')
         h1.text-black 已下架
-
-
 </template>
 
 <script setup>

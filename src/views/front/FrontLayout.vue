@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app-bar(color='black')
-  v-app-bar-title Mimir 
+  v-app-bar-title Mimir
   template(#append)
     v-btn(v-if='!isLogin || isLogin' to='/' variant="plain") 首頁
     v-btn(v-if='!isLogin || isLogin' to='/news' variant="plain") 最新消息
@@ -110,4 +110,3 @@ const init = async () => {
 init()
 
 </script>
-
