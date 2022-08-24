@@ -129,6 +129,16 @@ const router = createRouter({
           }
         },
         {
+          path: 'users',
+          name: 'admin-users',
+          component: () => import('@/views/admin/UsersView.vue'),
+          meta: {
+            title: 'Mimir | 會員管理',
+            login: true,
+            admin: true
+          }
+        },
+        {
           path: 'products',
           name: 'admin-products',
           component: () => import('@/views/admin/ProductsView.vue'),

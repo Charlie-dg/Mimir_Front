@@ -18,7 +18,7 @@ export const useUserStore = defineStore({
       return this.token.length !== 0
     },
     isAdmin() {
-      return this.role === 1
+      return this.role === '管理員'
     },
     avatar() {
       return 'https://source.boringavatars.com/beam/120/' + this.account

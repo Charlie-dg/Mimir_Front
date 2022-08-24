@@ -31,14 +31,14 @@ v-row#register(justify='center')
       )
       v-text-field(
         type='text'
-        label='名稱'
+        label='姓名'
         v-model='form.name'
         counter='10'
         maxlength='10'
       )
       v-select(
         type='text'
-        label='性別' 
+        label='性別'
         v-model='form.gender'
         :items='genders'
         :rules='rules.gender'
@@ -47,7 +47,6 @@ v-row#register(justify='center')
         type='text'
         label='手機'
         v-model='form.phone'
-
         counter='10'
         maxlength='10'
       )
@@ -55,12 +54,10 @@ v-row#register(justify='center')
         type='text'
         label='地址'
         v-model='form.address'
-
         counter='50'
         maxlength='50'
       )
       v-btn.mx-auto(color='black' type='submit' :loading='loading') 註冊
-  
 </template>
 
 <script setup>

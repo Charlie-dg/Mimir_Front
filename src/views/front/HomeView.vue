@@ -1,23 +1,23 @@
 <template lang="pug">
 #home
-v-row(justify='center')
-  v-col(cols='7')
-    v-carousel
-      v-card-item(v-for='(item, i) in carousel' :key='i')
-        v-img(:src='item.src' cover)
-    v-divider
-    #indexProfile
-      v-card(width="200px" height="100px")
-        v-img(:src='`https://picsum.photos/500/300?image=1`' )
+  v-row(justify='center')
+    v-col(cols='9')
+      v-carousel(cycle :show-arrows="false")
+        v-carousel-item(v-for='(item, i) in carousel' :key='i' :src='item.src' cover)
+    v-col(cols='9')
+      v-row.justify-start
+        v-col(cols='3' v-for='(item, i) in carousel' :key='i')
+          v-img(:src='item.src' cover)
 </template>
 
 <script setup>
 import { reactive } from 'vue'
 
 const carousel = reactive([
-  { src: 'https://picsum.photos/500/400?image=1' },
-  { src: 'https://picsum.photos/500/400?image=2' },
-  { src: 'https://picsum.photos/500/400?image=3' }
+  { src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg' },
+  { src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg' },
+  { src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg' },
+  { src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg' }
 ])
 
 const profiles = reactive([

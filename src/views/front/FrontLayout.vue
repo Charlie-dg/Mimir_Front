@@ -52,7 +52,7 @@ v-btn(
   )
 
 v-main
-  v-container
+  v-container(style="padding: 0;")
     router-view
 
 </template>

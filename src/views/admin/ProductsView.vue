@@ -1,9 +1,8 @@
 <template lang="pug">
-#admin-product
+#admin-products
   v-row.justify-center
     v-col(cols='9')
       h1.text-center.my-2 商品管理
-
     v-col(cols='9')
       v-row.justify-end.align-center(style="height: 150px;")
         v-btn(icon variant="text" @click="openDialog('', -1)")
@@ -30,11 +29,11 @@
             td.text-center(v-if='product.sell === false') 未上架
             td
               v-row.justify-center
-                v-btn(@click="openDialog(product._id, idx)" style="width: 2rem; height: 2rem;" icon)
-                  v-icon(style="font-size: large;" color="blue lighten-2") mdi-edit
+                v-btn(@click="openDialog(product._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
+                  v-icon(style="font-size: large;" color="blue lighten-2") mdi-pencil-outline
             td
               v-row.justify-center.align-center
-                v-btn(style="width: 2rem; height: 2rem;" icon)
+                v-btn(style="width: 2rem; height: 2rem;" icon variant="text")
                   v-icon(style="font-size: large;" color="red lighten-2") mdi-delete
           tr(v-else)
             td.text-center(colspan='3') 沒有商品
@@ -63,8 +62,6 @@
           v-row.justify-center
             v-btn(type='submit' color='primary' :loading='form.submitting') 確定
             v-btn(color='error' @click='form.dialog = false' :disabled='form.submitting') 取消
-
-
 </template>
 
 <script setup>
@@ -100,7 +97,6 @@ const rules = reactive({
 })
 
 const openDialog = (_id, idx) => {
-  console.log(products[idx])
   form._id = _id
   if (idx > -1) {
     form.name = products[idx].name
@@ -132,7 +128,6 @@ const submitForm = async () => {
     else if (key === 'image') fd.append(key, form[key][0])
     else fd.append(key, form[key])
   }
-
   try {
     if (form._id.length === 0) {
       const { data } = await apiAuth.post('/products', fd)
@@ -144,6 +139,7 @@ const submitForm = async () => {
       })
     } else {
       const { data } = await apiAuth.patch('/products/' + form._id, fd)
+      console.log(fd.name)
       products[form.idx] = data.result
       Swal.fire({
         icon: 'success',
@@ -159,7 +155,6 @@ const submitForm = async () => {
       text: error.isAxiosError ? error.response.data.message : error.message
     })
   }
-
   form.submitting = false
 }
 
