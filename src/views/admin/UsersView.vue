@@ -33,7 +33,7 @@
                   v-icon(style="font-size: large;" color="blue lighten-2") mdi-pencil-outline
             td
               v-row.justify-center.align-center
-                v-btn(style="width: 2rem; height: 2rem;" icon variant="text")
+                v-btn(@click="deleteUser(user._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
                   v-icon(style="font-size: large;" color="red lighten-2") mdi-delete
           tr(v-else)
             td.text-center(colspan='3') 沒有會員
@@ -143,8 +143,6 @@ const submitForm = async () => {
   try {
     if (form._id.length !== 0) {
       const { data } = await apiAuth.patch('/users/' + form._id, fd)
-      console.log(form._id)
-      console.log(fd.account)
       users[form.idx] = data.result
       Swal.fire({
         icon: 'success',
@@ -161,6 +159,26 @@ const submitForm = async () => {
     })
   }
   form.submitting = false
+}
+
+const deleteUser = async (_id, idx) => {
+  try {
+    if (_id.length !== 0) {
+      const { data } = await apiAuth.delete('/users/' + _id)
+      users.splice(idx, 1)
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '刪除成功'
+      })
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error.isAxiosError ? error.response.data.message : error.message
+    })
+  }
 }
 
 const init = async () => {

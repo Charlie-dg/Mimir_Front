@@ -12,7 +12,7 @@
             th.text-center.text-h6 編號
             th.text-center.text-h6 單號
             th.text-center.text-h6 日期
-            th.text-center.text-h6 會員
+            th.text-center.text-h6 會員帳號
             th.text-center.text-h6 金額
             th.text-center.text-h6 查看
             th.text-center.text-h6 刪除
@@ -29,7 +29,7 @@
                   v-icon(style="font-size: large;" color="purple lighten-2") mdi-eye
             td
               v-row.justify-center.align-center
-                v-btn(style="width: 2rem; height: 2rem;" icon variant="text")
+                v-btn(@click="deleteOrder(order._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
                   v-icon(style="font-size: large;" color="red lighten-2") mdi-delete
           tr(v-else)
             td.text-center(colspan='3') 沒有訂單
@@ -96,6 +96,26 @@ const openDialog = (_id, idx) => {
   form.idx = idx
   form.dialog = true
   form.valid = false
+}
+
+const deleteOrder = async (_id, idx) => {
+  try {
+    if (_id.length !== 0) {
+      const { data } = await apiAuth.delete('/orders/' + _id)
+      orders.splice(idx, 1)
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '刪除成功'
+      })
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error.isAxiosError ? error.response.data.message : error.message
+    })
+  }
 }
 
 const init = async () => {

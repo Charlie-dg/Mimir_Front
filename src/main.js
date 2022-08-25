@@ -17,7 +17,6 @@ library.add(faUserSecret)
 
 loadFonts()
 
-
 createApp(App)
   .use(pinia)
   .use(router)
