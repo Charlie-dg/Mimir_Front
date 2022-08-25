@@ -1,0 +1,1 @@
+import{o as e,c as t,a,w as s,V as c,b as o,_ as r}from"./index.87841fbf.js";const n={id:"team"},i=o("h1",{class:"text-center text-decoration-underline my-4"},"\u8A2D\u8A08\u5718\u968A",-1);function d(l,f){return e(),t("div",n,[a(c,{class:"justify-center align-center",style:{height:"150px"}},{default:s(()=>[i]),_:1})])}const _={};var m=r(_,[["render",d]]);export{m as default};
