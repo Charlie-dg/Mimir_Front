@@ -1,1 +1,0 @@
-import{o as e,c as t,a as s,w as o,V as a,b as c}from"./index.40bb4b12.js";const n={id:"books"},r=c("h1",{class:"text-center text-decoration-underline my-4"},"\u7DDA\u4E0A\u9810\u7D04",-1),h={__name:"BooksView",setup(i){return(_,d)=>(e(),t("div",n,[s(a,{class:"justify-center align-center",style:{height:"150px"}},{default:o(()=>[r]),_:1})]))}};export{h as default};
