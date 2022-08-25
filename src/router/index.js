@@ -167,6 +167,16 @@ const router = createRouter({
             login: true,
             admin: true
           }
+        },
+        {
+          path: 'designers',
+          name: 'admin-designers',
+          component: () => import('@/views/admin/TeamView.vue'),
+          meta: {
+            title: 'Mimir | 團隊管理',
+            login: true,
+            admin: true
+          }
         }
       ]
     },
