@@ -157,6 +157,16 @@ const router = createRouter({
             login: true,
             admin: true
           }
+        },
+        {
+          path: 'services',
+          name: 'admin-services',
+          component: () => import('@/views/admin/ServicesView.vue'),
+          meta: {
+            title: 'Mimir | 服務管理',
+            login: true,
+            admin: true
+          }
         }
       ]
     },

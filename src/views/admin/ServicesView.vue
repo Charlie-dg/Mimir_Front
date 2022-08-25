@@ -1,8 +1,8 @@
 <template lang="pug">
-#admin-products
+#admin-services
   v-row.justify-center
     v-col(cols='9')
-      h1.text-center.my-2 商品管理
+      h1.text-center.my-2 服務管理
     v-col(cols='9')
       v-row.justify-end.align-center(style="height: 150px;")
         v-btn(icon variant="text" @click="openDialog('', -1)")
@@ -12,73 +12,70 @@
         thead
           tr
             th.text-center.text-h6 編號
-            th.text-center.text-h6 圖片
-            th.text-center.text-h6 名稱
-            th.text-center.text-h6 種類
+            th.text-center.text-h6 服務名稱
+            th.text-center.text-h6 服務項目
+            th.text-center.text-h6 價格
+            th.text-center.text-h6 預計時間(hr)
             th.text-center.text-h6 上架
             th.text-center.text-h6 編輯
             th.text-center.text-h6 刪除
         tbody
-          tr(v-if='products.length > 0' v-for='(product, idx) in products' :key='product._id')
+          tr(v-if='services.length > 0' v-for='(service, idx) in services' :key='service._id')
             td.text-center {{ idx + 1 }}
-            td
-              v-img(:src='product.image')
-            td.text-center {{ product.name }}
-            td.text-center {{ product.category }}
-            td.text-center(v-if='product.sell === true') 已上架
-            td.text-center(v-if='product.sell === false') 未上架
+            td.text-center {{ service.name }}
+            td.text-center {{ service.category }}
+            td.text-center {{ service.price }}
+            td.text-center {{ service.costTime }}
+            td.text-center(v-if='service.sell === true') 已上架
+            td.text-center(v-if='service.sell === false') 未上架
             td
               v-row.justify-center
-                v-btn(@click="openDialog(product._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
+                v-btn(@click="openDialog(service._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
                   v-icon(style="font-size: large;" color="blue lighten-2") mdi-pencil-outline
             td
               v-row.justify-center.align-center
-                v-btn(@click="deleteProduct(product._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
+                v-btn(@click="deleteProduct(service._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
                   v-icon(style="font-size: large;" color="red lighten-2") mdi-delete
           tr(v-else)
-            td.text-center.text-h6(colspan='7') 尚無商品
+            td.text-center.text-h6(colspan='8') 尚無服務
 
   v-dialog(v-model='form.dialog' persistent)
     v-form(v-model='form.valid' @submit.prevent='submitForm')
       v-card
         v-card-title.text-center.my-4
-          .text-h5 {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
+          .text-h5 {{ form._id.length > 0 ? '編輯服務' : '新增服務' }}
         v-card-text
           v-container
             v-row.justify-center
               v-col(cols='9')
-                v-text-field(v-model='form.name' label='名稱' :rules='[rules.required]')
+                v-text-field(v-model='form.name' label='服務名稱' :rules='[rules.required]')
+              v-col(cols='9')
+                v-select(:items='categories' v-model='form.category' label='服務項目' :rules='[rules.required]')
               v-col(cols='9')
                 v-text-field(type='number' min='0' v-model='form.price' label='價格' :rules='[rules.required, rules.price]')
               v-col(cols='9')
+                v-text-field(type='number' min='0' v-model='form.costTime' label='預計時間' :rules='[rules.required, rules.costTime]')
+              v-col(cols='9')
                 v-checkbox(v-model='form.sell' label='上架')
-              v-col(cols='9')
-                v-select(:items='categories' v-model='form.category' label='分類' :rules='[rules.required]')
-              v-col(cols='9')
-                v-file-input(v-model='form.image' show-size accept='image/*' label='商品圖片' :prepend-icon='""' outlined :rules='[rules.size]')
-              v-col(cols='9')
-                v-textarea(v-model='form.description' label='商品介紹')
         v-card-actions
           v-row.justify-center
             v-btn(type='submit' color='primary' :loading='form.submitting') 確定
             v-btn(color='error' @click='form.dialog = false' :disabled='form.submitting') 取消
 </template>
-
 <script setup>
 import { reactive } from 'vue'
 import Swal from 'sweetalert2'
 import { apiAuth } from '@/plugins/axios'
 
-const categories = reactive(['洗髮系列', '護髮系列', '造型梳', '造型夾', '電捲棒', '吹風機'])
-const products = reactive([])
+const categories = reactive(['洗髮', '剪髮', '染髮', '燙髮', '護髮'])
+const services = reactive([])
 const form = reactive({
   _id: '',
   name: '',
-  price: 0,
-  sell: false,
   category: '',
-  image: '',
-  description: '',
+  price: 0,
+  costTime: 0,
+  sell: false,
   idx: -1,
   dialog: false,
   valid: false,
@@ -92,27 +89,26 @@ const rules = reactive({
   price(v) {
     return v > -1 || '必須大於等於 0'
   },
-  size(v) {
-    return !v || !v.length || (v[0]?.type?.includes('image') && v[0]?.size < 1024 * 1024 || '檔案格式不符')
+  costTime(v) {
+    return v > -1 || '必須大於等於 0'
   }
 })
 
 const openDialog = (_id, idx) => {
   form._id = _id
   if (idx > -1) {
-    form.name = products[idx].name
-    form.price = products[idx].price
-    form.sell = products[idx].sell
-    form.category = products[idx].category
-    form.description = products[idx].description
+    form.name = services[idx].name
+    form.category = services[idx].category
+    form.price = services[idx].price
+    form.costTime = services[idx].costTime
+    form.sell = services[idx].sell
   } else {
     form.name = ''
-    form.price = 0
-    form.sell = false
     form.category = ''
-    form.description = ''
+    form.price = 0
+    form.costTime = 0
+    form.sell = false
   }
-  form.image = []
   form.idx = idx
   form.dialog = true
   form.valid = false
@@ -131,17 +127,17 @@ const submitForm = async () => {
   }
   try {
     if (form._id.length === 0) {
-      const { data } = await apiAuth.post('/products', fd)
-      products.push(data.result)
+      const { data } = await apiAuth.post('/services', fd)
+      services.push(data.result)
       Swal.fire({
         icon: 'success',
         title: '成功',
         text: '新增成功'
       })
     } else {
-      const { data } = await apiAuth.patch('/products/' + form._id, fd)
+      const { data } = await apiAuth.patch('/services/' + form._id, fd)
       console.log(fd.name)
-      products[form.idx] = data.result
+      services[form.idx] = data.result
       Swal.fire({
         icon: 'success',
         title: '成功',
@@ -162,8 +158,8 @@ const submitForm = async () => {
 const deleteProduct = async (_id, idx) => {
   try {
     if (_id.length !== 0) {
-      const { data } = await apiAuth.delete('/products/' + _id)
-      products.splice(idx, 1)
+      const { data } = await apiAuth.delete('/services/' + _id)
+      services.splice(idx, 1)
       Swal.fire({
         icon: 'success',
         title: '成功',
@@ -181,8 +177,8 @@ const deleteProduct = async (_id, idx) => {
 
 const init = async () => {
   try {
-    const { data } = await apiAuth.get('/products/all')
-    products.push(...data.result)
+    const { data } = await apiAuth.get('/services/all')
+    services.push(...data.result)
   } catch (error) {
     console.log(error)
     Swal.fire({
