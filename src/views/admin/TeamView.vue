@@ -14,8 +14,8 @@
             th.text-center.text-h6 編號
             th.text-center.text-h6 頭像
             th.text-center.text-h6 姓名
-            th.text-center.text-h6 簡介
             th.text-center.text-h6 發佈
+            th.text-center.text-h6 查看
             th.text-center.text-h6 編輯
             th.text-center.text-h6 刪除
         tbody
@@ -24,16 +24,25 @@
             td
               v-img(:src='designer.avatar')
             td.text-center {{ designer.name }}
-            td.text-center {{ designer.description }}
             td.text-center(v-if='designer.publish === true') 已發佈
             td.text-center(v-if='designer.publish === false') 未發佈
-            td.text-center 編輯
-            td.text-center 刪除
+            td
+              v-row.justify-center.align-center
+                v-btn(@click="openDialog(designer._id, idx, true)" style="width: 2rem; height: 2rem;" icon variant="text")
+                  v-icon(style="font-size: large;" color="purple lighten-2") mdi-eye
+            td
+              v-row.justify-center
+                v-btn(@click="openDialog(designer._id, idx, false)" style="width: 2rem; height: 2rem;" icon variant="text")
+                  v-icon(style="font-size: large;" color="blue lighten-2") mdi-pencil-outline
+            td
+              v-row.justify-center.align-center
+                v-btn(@click="deleteProduct(designer._id, idx, false)" style="width: 2rem; height: 2rem;" icon variant="text")
+                  v-icon(style="font-size: large;" color="red lighten-2") mdi-delete
           tr(v-else)
             td.text-center.text-h6(colspan='7') 尚無設計師
 
   v-dialog(v-model='form.dialog' persistent)
-    v-form(v-model='form.valid' @submit.prevent='submitForm')
+    v-form(v-if='!form.read' v-model='form.valid' @submit.prevent='submitForm')
       v-card
         v-card-title.text-center.my-4
           .text-h5 {{ form._id.length > 0 ? '編輯設計師' : '新增設計師' }}
@@ -45,15 +54,36 @@
               v-col(cols='9')
                 v-textarea(v-model='form.description' label='簡介' :rules='[rules.required]')
               v-col(cols='9')
-                v-file-input(v-model='form.avatar' show-size accept='avatar/*' label='頭像' :prepend-icon='""' outlined :rules='[rules.size]')
+                v-checkbox(v-model='form.publish' label='發佈')
               v-col(cols='9')
-                v-file-input(v-model='form.portfolio' show-size accept='portfolio/*' label='作品集' :prepend-icon='""' outlined :rules='[rules.size]')
+                v-file-input(v-model='form.avatar' show-size accept='avatar/*' label='頭像' :prepend-icon='"mdi-camera"' outlined :rules='[rules.size]')
               v-col(cols='9')
-                v-img(:src='form.portfolio')
+                v-file-input(multiple v-model='form.portfolio' show-size accept='portfolio/*' label='作品集' :prepend-icon='"mdi-image-multiple"' outlined :rules='[rules.size]')
         v-card-actions
           v-row.justify-center
             v-btn(type='submit' color='primary' :loading='form.submitting') 確定
             v-btn(color='error' @click='form.dialog = false' :disabled='form.submitting') 取消
+    v-form(v-else)
+      v-card(style="width: 600px;")
+        v-col.d-flex.justify-end
+          v-btn(icon variant="text" size="x-small" @click="form.dialog = false")
+            v-icon mdi-close
+        v-col.d-flex.justify-center
+          v-avatar(size="250px")
+            v-img(:src='form.avatar')
+        v-card-title.text-center.my-2
+          .text-h5.font-weight-bold {{ form.name }}
+        v-card-text
+          v-container
+            v-row.justify-center.align-center
+              v-col(cols='10')
+                .text-h6.font-weight-bold.text-center 簡介:
+                .text-h6.font-weight-bold.text-center.my-2 {{ form.description }}
+            v-row.justify-center.align-center(style="height: 50px;")
+              .text-h6.font-weight-bold.text-center.my-2 作品集:
+            v-row.justify-center.align-center(style="height: 150px;")
+              v-col(cols='2' v-for='item in form.portfolio')
+                v-img(:src='item')
 </template>
 
 <script setup>
@@ -71,6 +101,7 @@ const form = reactive({
   publish: false,
   idx: -1,
   dialog: false,
+  read: false,
   valid: false,
   submitting: false
 })
@@ -84,19 +115,37 @@ const rules = reactive({
   }
 })
 
-const openDialog = (_id, idx) => {
+const openDialog = (_id, idx, read) => {
   form._id = _id
-  if (idx > -1) {
+  // 是否為查看
+  if (read) {
+    // 查看，顯示設計師資訊
     form.name = designers[idx].name
     form.description = designers[idx].description
     form.publish = designers[idx].publish
+    form.avatar = designers[idx].avatar
+    for (const i in designers[idx].portfolio) {
+      form.portfolio[i] = designers[idx].portfolio[i]
+    }
+    form.read = true
   } else {
-    form.name = ''
-    form.description = ''
-    form.publish = false
+    if (idx > -1) {
+      // 編輯，設計師預設為元內容
+      form.name = designers[idx].name
+      form.description = designers[idx].description
+      form.publish = designers[idx].publish
+      form.avatar = []
+      form.portfolio = []
+    } else {
+      // 新增，設計師資訊預設空白
+      form.name = ''
+      form.description = ''
+      form.publish = false
+      form.avatar = []
+      form.portfolio = []
+    }
+    form.read = false
   }
-  form.avatar = []
-  form.portfolio = []
   form.idx = idx
   form.dialog = true
   form.valid = false
@@ -112,8 +161,8 @@ const submitForm = async () => {
     if (['_id', 'idx', 'dialog', 'valid', 'submitting'].includes(key)) continue
     else if (key === 'avatar') fd.append(key, form[key][0])
     else if (key === 'portfolio') {
-      for (const path in form[key]) {
-        fd.append(key, path)
+      for (const i in form[key]) {
+        fd.append(key, form[key][i])
       }
     } else fd.append(key, form[key])
   }
@@ -128,7 +177,6 @@ const submitForm = async () => {
       })
     } else {
       const { data } = await apiAuth.patch('/designers/' + form._id, fd)
-      console.log(fd.name)
       designers[form.idx] = data.result
       Swal.fire({
         icon: 'success',
@@ -145,6 +193,26 @@ const submitForm = async () => {
     })
   }
   form.submitting = false
+}
+
+const deleteProduct = async (_id, idx) => {
+  try {
+    if (_id.length !== 0) {
+      const { data } = await apiAuth.delete('/designers/' + _id)
+      designers.splice(idx, 1)
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '刪除成功'
+      })
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error.isAxiosError ? error.response.data.message : error.message
+    })
+  }
 }
 
 const init = async () => {

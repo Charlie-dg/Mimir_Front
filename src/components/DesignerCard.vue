@@ -1,21 +1,26 @@
 <template lang="pug">
-v-card.designer-card
-  v-row.justify-center
-    v-col
-      v-img.ma-2(
-        :src='designer.avatar'
-        v-if='this.display === md' width="500px" height="200px"
-      )
-      v-img.ma-2(
-        :src='designer.avatar'
-        v-else-if='this.display === lg' width="400px" height="150px"
-      )
-      v-img.ma-2(
-        :src='designer.avatar'
-        v-else-if='this.display === xl' width="300px" height="100px"
-      )
-  v-card-title.text-center
-    h4 {{ designer.name }}
+v-card.designer-card(elevation='10')
+  v-row(style="height: 50px")
+  v-col.d-flex.justify-center
+    v-avatar(v-if='this.display === md' size="200px")
+      v-img(:src='designer.avatar')
+    v-avatar(v-else-if='this.display === lg' width="100px")
+      v-img(:src='designer.avatar')
+    v-avatar(v-else-if='this.display === xl' width="50px")
+      v-img(:src='designer.avatar')
+  v-card-title.text-center.my-2
+    .text-h5.font-weight-bold {{ designer.name }}
+  v-card-text
+    v-container
+      v-row.justify-center.align-center
+        v-col(cols='10')
+          .text-h6.font-weight-bold.text-center 簡介:
+          .text-h6.font-weight-bold.text-center.my-2 {{ designer.description }}
+      v-row.justify-center.align-center(style="height: 50px;")
+        .text-h6.font-weight-bold.text-center.my-2 作品集:
+      v-row.justify-center.align-center
+        v-col(cols='2' v-for='item in designer.portfolio')
+          v-img(:src='item')
 </template>
 
 <script setup>

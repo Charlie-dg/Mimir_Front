@@ -1,5 +1,5 @@
 <template lang="pug">
-v-card.product-card
+v-card.product-card(elevation='3')
   v-row.justify-center
     v-col
       v-img.ma-2(

@@ -126,8 +126,9 @@ const submitForm = async () => {
   const fd = new FormData()
   for (const key in form) {
     if (['_id', 'idx', 'dialog', 'valid', 'submitting'].includes(key)) continue
-    else if (key === 'image') fd.append(key, form[key][0])
-    else fd.append(key, form[key])
+    else if (key === 'image') {
+      fd.append(key, form[key][0])
+    } else fd.append(key, form[key])
   }
   try {
     if (form._id.length === 0) {
