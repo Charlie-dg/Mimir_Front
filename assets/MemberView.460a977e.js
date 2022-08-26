@@ -1,1 +1,0 @@
-import{o as e,c as t,a,w as s,V as c,b as r,_ as o}from"./index.89256b45.js";const n={id:"member"},i=r("h1",{class:"text-center text-decoration-underline my-4"},"\u6703\u54E1\u5C08\u53401",-1);function d(l,m){return e(),t("div",n,[a(c,{class:"justify-center align-center",style:{height:"150px"}},{default:s(()=>[i]),_:1})])}const _={};var h=o(_,[["render",d]]);export{h as default};
