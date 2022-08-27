@@ -1,13 +1,15 @@
 <template lang="pug">
 #home
-  v-row(justify='center')
+  v-row.justify-center
     v-col(cols='9')
       v-carousel(cycle :show-arrows="false")
         v-carousel-item(v-for='(item, i) in carousel' :key='i' :src='item.src' cover)
     v-col(cols='9')
-      v-row.justify-start
-        v-col(cols='3' v-for='designer in designers')
-          v-img(:src='designer.avatar' cover)
+      v-row.justify-center.align-center
+        .designer(style="width: 100%; height: 30%;" )
+          v-slide-group(:show-arrows="true" class="pa-4")
+            v-slide-group-item(v-for='(designer, idx) in designers' :key='idx + 1')
+              v-img(:src='designer.avatar' :class="m-4" style="width: 310px; height: 300px;")
 </template>
 
 <script setup>

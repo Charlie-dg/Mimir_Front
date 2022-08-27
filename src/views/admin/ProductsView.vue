@@ -39,8 +39,11 @@
             td.text-center.text-h6(colspan='7') 尚無商品
 
   v-dialog(v-model='form.dialog' persistent)
-    v-form(v-model='form.valid' @submit.prevent='submitForm')
+    v-form(v-model='form.valid' @submit.prevent='submitForm' class="overflow-auto")
       v-card
+        v-col.d-flex.justify-end
+          v-btn(icon variant="text" size="x-small" @click="form.dialog = false")
+            v-icon mdi-close
         v-card-title.text-center.my-4
           .text-h5 {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
         v-card-text
@@ -55,7 +58,7 @@
               v-col(cols='9')
                 v-select(:items='categories' v-model='form.category' label='分類' :rules='[rules.required]')
               v-col(cols='9')
-                v-file-input(v-model='form.image' show-size accept='image/*' label='商品圖片' :prepend-icon='""' outlined :rules='[rules.size]')
+                v-file-input(v-model='form.image' show-size accept='image/*' label='商品圖片' :prepend-icon='"mdi-image"' outlined :rules='[rules.size]')
               v-col(cols='9')
                 v-textarea(v-model='form.description' label='商品介紹')
         v-card-actions
@@ -86,13 +89,13 @@ const form = reactive({
 })
 
 const rules = reactive({
-  required(v) {
+  required (v) {
     return !!v || '必填'
   },
-  price(v) {
+  price (v) {
     return v > -1 || '必須大於等於 0'
   },
-  size(v) {
+  size (v) {
     return !v || !v.length || (v[0]?.type?.includes('image') && v[0]?.size < 1024 * 1024 || '檔案格式不符')
   }
 })

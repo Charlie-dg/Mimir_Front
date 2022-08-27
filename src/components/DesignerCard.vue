@@ -2,11 +2,11 @@
 v-card.designer-card(elevation='10')
   v-row(style="height: 50px")
   v-col.d-flex.justify-center
-    v-avatar(v-if='this.display === md' size="200px")
+    v-avatar(v-if='this.display === md' size="300px")
       v-img(:src='designer.avatar')
-    v-avatar(v-else-if='this.display === lg' width="100px")
+    v-avatar(v-else-if='this.display === lg' size="200px")
       v-img(:src='designer.avatar')
-    v-avatar(v-else-if='this.display === xl' width="50px")
+    v-avatar(v-else-if='this.display === xl' size="100px")
       v-img(:src='designer.avatar')
   v-card-title.text-center.my-2
     .text-h5.font-weight-bold {{ designer.name }}
@@ -16,11 +16,13 @@ v-card.designer-card(elevation='10')
         v-col(cols='10')
           .text-h6.font-weight-bold.text-center 簡介:
           .text-h6.font-weight-bold.text-center.my-2 {{ designer.description }}
-      v-row.justify-center.align-center(style="height: 50px;")
+      v-row.justify-center.align-center(style="height: 100px;")
         .text-h6.font-weight-bold.text-center.my-2 作品集:
       v-row.justify-center.align-center
-        v-col(cols='2' v-for='item in designer.portfolio')
-          v-img(:src='item')
+        .portfolio(style="width: 80%; height: 50%;" )
+          v-slide-group(:show-arrows="true" class="pa-4")
+            v-slide-group-item(v-for='(item, idx) in designer.portfolio' :key='idx + 1')
+              v-img(:src='item' :class="m-4" style="width: 300px; height: 300px;")
 </template>
 
 <script setup>

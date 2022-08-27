@@ -44,6 +44,9 @@
   v-dialog(v-model='form.dialog' persistent)
     v-form(v-if='!form.read' v-model='form.valid' @submit.prevent='submitForm')
       v-card
+        v-col.d-flex.justify-end
+          v-btn(icon variant="text" size="x-small" @click="form.dialog = false")
+            v-icon mdi-close
         v-card-title.text-center.my-4
           .text-h5 {{ form._id.length > 0 ? '編輯設計師' : '新增設計師' }}
         v-card-text
@@ -81,9 +84,11 @@
                 .text-h6.font-weight-bold.text-center.my-2 {{ form.description }}
             v-row.justify-center.align-center(style="height: 50px;")
               .text-h6.font-weight-bold.text-center.my-2 作品集:
-            v-row.justify-center.align-center(style="height: 150px;")
-              v-col(cols='2' v-for='item in form.portfolio')
-                v-img(:src='item')
+            v-row.justify-center.align-center
+              .portfolio(style="width: 80%; height: 50%;" )
+                v-slide-group(:show-arrows="true" class="pa-4")
+                  v-slide-group-item(v-for='(item, idx) in form.portfolio' :key='idx + 1')
+                    v-img(:src='item' :class="m-4" style="width: 200px; height: 200px;")
 </template>
 
 <script setup>
@@ -107,10 +112,10 @@ const form = reactive({
 })
 
 const rules = reactive({
-  required(v) {
+  required (v) {
     return !!v || '必填'
   },
-  size(v) {
+  size (v) {
     return !v || !v.length || (v[0]?.type?.includes('image') && v[0]?.size < 1024 * 1024 || '檔案格式不符')
   }
 })

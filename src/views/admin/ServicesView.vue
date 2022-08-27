@@ -42,6 +42,9 @@
   v-dialog(v-model='form.dialog' persistent)
     v-form(v-model='form.valid' @submit.prevent='submitForm')
       v-card
+        v-col.d-flex.justify-end
+          v-btn(icon variant="text" size="x-small" @click="form.dialog = false")
+            v-icon mdi-close
         v-card-title.text-center.my-4
           .text-h5 {{ form._id.length > 0 ? '編輯服務' : '新增服務' }}
         v-card-text
@@ -83,13 +86,13 @@ const form = reactive({
 })
 
 const rules = reactive({
-  required(v) {
+  required (v) {
     return !!v || '必填'
   },
-  price(v) {
+  price (v) {
     return v > -1 || '必須大於等於 0'
   },
-  costTime(v) {
+  costTime (v) {
     return v > -1 || '必須大於等於 0'
   }
 })

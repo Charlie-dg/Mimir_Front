@@ -38,7 +38,7 @@
           tr(v-else)
             td.text-center(colspan='3') 沒有會員
   v-dialog(v-model='form.dialog' persistent)
-    v-form(v-model='form.valid' @submit.prevent='submitForm')
+    v-form(v-model='form.valid' @submit.prevent='submitForm' class="overflow-auto")
       v-card
         v-col.d-flex.justify-end
           v-btn(icon variant="text" size="x-small" @click="form.dialog = false")
