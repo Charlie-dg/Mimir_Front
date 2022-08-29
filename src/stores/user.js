@@ -9,6 +9,11 @@ export const useUserStore = defineStore({
     return {
       token: '',
       account: '',
+      name: '',
+      gender: '',
+      phone: 0,
+      email: '',
+      address: '',
       role: 0,
       cart: 0
     }
@@ -134,6 +139,11 @@ export const useUserStore = defineStore({
       try {
         const { data } = await apiAuth.get('/users')
         this.account = data.result.account
+        this.name = data.result.name
+        this.gender = data.result.gender
+        this.phone = data.result.phone
+        this.email = data.result.email
+        this.address = data.result.address
         this.role = data.result.role
         this.cart = data.result.cart
       } catch (error) {

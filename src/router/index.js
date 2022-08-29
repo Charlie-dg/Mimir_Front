@@ -47,7 +47,7 @@ const router = createRouter({
           name: 'books',
           component: () => import('@/views/front/BooksView.vue'),
           meta: {
-            title: 'Mimir | 線上預約',
+            title: 'Mimir | 價目表',
             login: false,
             admin: false
           }
@@ -134,6 +134,16 @@ const router = createRouter({
           component: () => import('@/views/admin/UsersView.vue'),
           meta: {
             title: 'Mimir | 會員管理',
+            login: true,
+            admin: true
+          }
+        },
+        {
+          path: 'news',
+          name: 'admin-news',
+          component: () => import('@/views/admin/NewsView.vue'),
+          meta: {
+            title: 'Mimir | 消息管理',
             login: true,
             admin: true
           }

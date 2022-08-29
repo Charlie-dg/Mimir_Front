@@ -5,7 +5,7 @@ v-app-bar(color='black')
     v-btn(v-if='!isLogin || isLogin' to='/' variant="plain") 首頁
     v-btn(v-if='!isLogin || isLogin' to='/news' variant="plain") 最新消息
     v-btn(v-if='!isLogin || isLogin' to='/team' variant="plain") 設計團隊
-    v-btn(v-if='!isLogin || isLogin' to='/books' variant="plain") 線上預約
+    v-btn(v-if='!isLogin || isLogin' to='/books' variant="plain") 價目表
     v-btn(v-if='!isLogin || isLogin' to='/store' variant="plain") 線上商店
     v-btn(v-if='!isLogin' to='/register' variant="plain") 註冊
     v-btn(v-if='!isLogin' to='/login' variant="plain") 登入
@@ -62,7 +62,7 @@ import { reactive, ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import Swal from 'sweetalert2'
-import { api, apiAuth } from '../../plugins/axios';
+import { api, apiAuth } from '../../plugins/axios'
 
 const user = useUserStore()
 const { logout } = user
