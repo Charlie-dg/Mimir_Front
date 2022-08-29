@@ -21,29 +21,30 @@
           v-select(:items='sorts' label='排序方式')
       v-row.justify-start
         v-col.align-stretch(v-if='products.length > 0' v-for='product in products' cols='12' md='6' lg='4' xl='3')
-          v-card.product-card(elevation='3')
-            v-row.justify-center
-              v-col
-                v-img.ma-2(
-                  :src='product.image'
-                  v-if='this.display === md' width="500px" height="200px"
-                )
-                v-img.ma-2(
-                  :src='product.image'
-                  v-else-if='this.display === lg' width="400px" height="150px"
-                )
-                v-img.ma-2(
-                  :src='product.image'
-                  v-else-if='this.display === xl' width="300px" height="100px"
-                )
-                v-card-title.text-center
-                  h4(@click="openDialog = true") {{ product.name }}
-                v-card-subtitle.text-center(style="font-size: 1rem;") ${{ product.price }}
-                v-card-actions.justify-center
-                  v-btn(color='black' prepend-icon='mdi-cart' @click='addCart({ product: product._id, quantity: 1 })') 加入購物車
+          ProductCard(:product='product')
+        //-   v-card.product-card(elevation='3')
+        //-     v-row.justify-center
+        //-       v-col
+        //-         v-img.ma-2(
+        //-           :src='product.image'
+        //-           v-if='this.display === md' width="500px" height="200px"
+        //-         )
+        //-         v-img.ma-2(
+        //-           :src='product.image'
+        //-           v-else-if='this.display === lg' width="400px" height="150px"
+        //-         )
+        //-         v-img.ma-2(
+        //-           :src='product.image'
+        //-           v-else-if='this.display === xl' width="300px" height="100px"
+        //-         )
+        //-         v-card-title.text-center
+        //-           h4(@click="openDialog = true") {{ product.name }}
+        //-         v-card-subtitle.text-center(style="font-size: 1rem;") ${{ product.price }}
+        //-         v-card-actions.justify-center
+        //-           v-btn(color='black' prepend-icon='mdi-cart' @click='addCart({ product: product._id, quantity: 1 })') 加入購物車
         v-col(v-else cols='9')
           h1.text-center 尚無商品
-v-dialog(v-model='openDialog' persistent)
+//- v-dialog(v-model='openDialog' persistent)
   v-card.d-flex.flex-row(width="900px" height="400px")
     v-col.d-flex.justify-center.align-center(cols='5')
       v-img(:src='product.image')
