@@ -26,6 +26,9 @@
             v-col(cols='10')
               .text-h5 地址 : {{ address }}
         v-window-item(:value="'訂單資料'")
+          v-row.justify-center(v-for='order in orders')
+            v-col(cols='10')
+              .text-h5 產品 : {{ order.products[0].product.name }}
 </template>
 
 <script setup>
@@ -41,23 +44,28 @@ const tabs = reactive({
 })
 
 const user = useUserStore()
-const { logout } = user
 const { account, name, gender, phone, email, address } = storeToRefs(user)
 
-const userContent = reactive([])
-// const init = async () => {
-//   try {
-//     const data = await user.getUser()
-//     userContent.push(data)
-//     console.log('data: ', data)
-//   } catch (error) {
-//     console.log(error)
-//     Swal.fire({
-//       icon: 'error',
-//       title: '失敗',
-//       text: error.isAxiosError ? error.response.data.message : error.message
-//     })
-//   }
-// }
-// init()
+const orders = reactive([])
+
+const init = async () => {
+  try {
+    const { data } = await apiAuth.get('/orders')
+    orders.push(...data.result.map(order => {
+      order.totalPrice = order.products.reduce((a, b) => {
+        return a + b.product.price * b.quantity
+      }, 0)
+      return order
+    }))
+    console.log(orders)
+  } catch (error) {
+    console.log(error)
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: '無法取得訂單'
+    })
+  }
+}
+init()
 </script>
