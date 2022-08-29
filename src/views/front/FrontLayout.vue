@@ -51,6 +51,20 @@ v-btn(
   v-else='drawers === true' style="position: fixed; top: 50%; right: calc(0.5% + 450px); z-index: 1004;"
   )
 
+v-navigation-drawer#footer(location='bottom' expand-on-hover rail color="black" class="overflow-x-hidden")
+  #sm.d-flex.justify-center.my-1
+    v-btn(v-for='socialMedia in socialMedias' icon variant="text")
+      v-icon(style="font-size: large;") {{ socialMedia }}
+  #footerInfo.d-flex.justify-center.align-center
+    v-row.justify-center.align-center
+      v-col.d-flex.justify-end.align-end(cols='6')
+        <img src="../images/logo.png" style="width: 150px; height: 140px;">
+      v-col(cols='6')
+        .text-h6.my-2 聯絡我們
+        .text-subtitle-4 Tel : 02-8772-5501<br>Email : mimir.store2022@gmail.com
+
+  v-col(cols='12')
+    .text-subtitle-4.text-center ©MimirSalon.All Rights Reserved.
 v-main
   v-container(style="padding: 0;")
     router-view
@@ -68,6 +82,8 @@ const user = useUserStore()
 const { logout } = user
 const { isLogin, isAdmin } = storeToRefs(user)
 const drawers = ref(false)
+
+const socialMedias = reactive(['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'])
 
 // Cart
 const cart = reactive([])

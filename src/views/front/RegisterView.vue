@@ -1,7 +1,7 @@
 <template lang="pug">
-v-row#register(justify='center')
+v-row#register.justify-center
   v-col(cols='6')
-    h1.text-center 註冊
+    h1.text-center.my-4 註冊
   v-divider
   v-col(cols='6')
     v-form(v-model='valid' @submit.prevent='register')
@@ -57,7 +57,8 @@ v-row#register(justify='center')
         counter='50'
         maxlength='50'
       )
-      v-btn.mx-auto(color='black' type='submit' :loading='loading') 註冊
+      v-row.justify-center
+        v-btn.mx-auto(color='black' type='submit' :loading='loading') 註冊
 </template>
 
 <script setup>

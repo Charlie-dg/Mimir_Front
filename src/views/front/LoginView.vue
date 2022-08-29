@@ -1,7 +1,7 @@
 <template lang="pug">
-v-row#login(justify='center')
+v-row#login.justify-center
   v-col(cols='6')
-    h1.text-center 登入
+    h1.text-center.my-4 登入
   v-divider
   v-col(cols='6')
     v-form(v-model='valid' @submit.prevent='login')
@@ -21,7 +21,8 @@ v-row#login(justify='center')
         counter='20'
         maxlength='20'
       )
-      v-btn.mx-auto(color='black' type='submit' :loading='loading') 登入
+      v-row.justify-center
+        v-btn.mx-auto(color='black' type='submit' :loading='loading') 登入
 </template>
 
 <script setup>
