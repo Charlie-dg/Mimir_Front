@@ -4,17 +4,17 @@
     h1.text-center.text-decoration-underline.my-4 線上商店
   v-row(style="height: 100px;")
   v-row.justify-center
-    v-col(cols='2')
-      v-row(style="height: 200px;")
-      v-list
-        v-list-item.justify-center
-          h2 篩選方式
-        v-divider
-        v-list-item.justify-center.mt-2
-          h3 種類
-        v-chip-group
-          v-chip(v-for='item in categories' filter outlined label) {{ item }}
-        v-divider
+    //- v-col(cols='2')
+    //-   v-row(style="height: 200px;")
+    //-   v-list
+    //-     v-list-item.justify-center
+    //-       h2 篩選方式
+    //-     v-divider
+    //-     v-list-item.justify-center.mt-2
+    //-       h3 種類
+    //-     v-chip-group
+    //-       v-chip(v-for='item in categories' filter outlined label) {{ item }}
+    //-     v-divider
     v-col(cols='6')
       v-row.justify-end.align-center(style="height: 200px;")
         v-col(cols='3')

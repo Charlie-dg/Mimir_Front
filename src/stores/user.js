@@ -146,6 +146,8 @@ export const useUserStore = defineStore({
         this.address = data.result.address
         this.role = data.result.role
         this.cart = data.result.cart
+        console.log('data', data)
+        console.log('this', this)
       } catch (error) {
         this.logout()
       }

@@ -10,11 +10,12 @@ v-navigation-drawer(expand-on-hover rail permanent)
   v-divider
   v-list
     v-list-item(to='/admin/news' title='消息管理' prepend-icon='mdi-newspaper-variant')
+    v-list-item(to='/admin/designers' title='團隊管理' prepend-icon='mdi-account-group')
+    v-list-item(to='/admin/services' title='服務管理' prepend-icon='mdi-hair-dryer')
     v-list-item(to='/admin/users' title='會員管理' prepend-icon='mdi-account-circle')
     v-list-item(to='/admin/orders' title='訂單管理' prepend-icon='mdi-format-list-checkbox')
     v-list-item(to='/admin/products' title='商品管理' prepend-icon='mdi-shopping')
-    v-list-item(to='/admin/services' title='服務管理' prepend-icon='mdi-hair-dryer')
-    v-list-item(to='/admin/designers' title='團隊管理' prepend-icon='mdi-account-group')
+
     v-list-item(to='/' title='回前台' prepend-icon='mdi-home')
 v-main
   v-container
