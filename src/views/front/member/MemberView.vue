@@ -8,23 +8,23 @@
       v-row
         v-tabs(v-model='tabs.tab' direction="vertical" color="primary")
           v-tab(v-for='item in userInfo' :value="item")
-            .text-h5.font-weight-bold {{    item    }}
+            .text-h5.font-weight-bold {{     item     }}
     v-col(cols='6')
       v-window(v-model='tabs.tab')
         v-window-item(:value="'會員資料'")
           v-row.justify-center
             v-col(cols='10')
-              .text-h5 帳號 : {{    account    }}
+              .text-h5 帳號 : {{     account     }}
             v-col(cols='10')
-              .text-h5 姓名 : {{    name    }}
+              .text-h5 姓名 : {{     name     }}
             v-col(cols='10')
-              .text-h5 性別 : {{    gender    }}
+              .text-h5 性別 : {{     gender     }}
             v-col(cols='10')
-              .text-h5 手機 : {{    phone    }}
+              .text-h5 手機 : {{     phone     }}
             v-col(cols='10')
-              .text-h5 信箱 : {{    email    }}
+              .text-h5 信箱 : {{     email     }}
             v-col(cols='10')
-              .text-h5 地址 : {{    address    }}
+              .text-h5 地址 : {{     address     }}
         //- v-window-item(:value="'訂單資料'")
         //-   v-row.justify-center(v-for='order in orders')
         //-     v-col(cols='10')
@@ -42,7 +42,7 @@ import { useUserStore } from '@/stores/user'
 import Swal from 'sweetalert2'
 import { apiAuth } from '@/plugins/axios'
 
-const userInfo = reactive(['訂單資料'])
+const userInfo = reactive(['會員資料'])
 const tabs = reactive({
   tab: ''
 })
