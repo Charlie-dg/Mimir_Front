@@ -2,21 +2,11 @@
 v-card.product-card(elevation='3')
   v-row.justify-center
     v-col
-      v-img.ma-2(
-        :src='product.image'
-        v-if='this.display === md' width="500px" height="200px"
-      )
-      v-img.ma-2(
-        :src='product.image'
-        v-else-if='this.display === lg' width="400px" height="150px"
-      )
-      v-img.ma-2(
-        :src='product.image'
-        v-else-if='this.display === xl' width="300px" height="100px"
-      )
+      v-img.ma-2(:src='product.image')
+
   v-card-title.text-center
-    h4(@click="openDialog = true") {{ product.name }}
-  v-card-subtitle.text-center(style="font-size: 1rem;") ${{ product.price }}
+    h4(@click="openDialog = true") {{   product.name   }}
+  v-card-subtitle.text-center(style="font-size: 1rem;") ${{   product.price   }}
   v-card-actions.justify-center
     v-btn(color='black' prepend-icon='mdi-cart' @click='addCart({ product: product._id, quantity: 1 })') 加入購物車
 
@@ -27,16 +17,16 @@ v-dialog(v-model='openDialog' persistent)
     v-col.d-flex.flex-column(cols='6')
       #productInfo(style="width: 100%; height: 80%;")
         #title.d-flex.align-center(style="width: 100%; height: 25%;")
-          h1 {{ product.name }}
+          h1 {{   product.name   }}
         #price.d-flex.align-center(style="width: 100%; height: 10%;")
           h2 $:
-          h2(style="color: green") {{ product.price }}
+          h2(style="color: green") {{   product.price   }}
         #description.d-flex.align-center(style="width: 100%; height: 55%;")
           h4(v-if='product.description.length > 0 && product.description !== "undefined"') 商品介紹 :
-            p {{ product.description }}
+            p {{   product.description   }}
           h4(v-else) 尚無商品介紹
         #category.d-flex.align-center(style="width: 100%; height: 10%;")
-          h5 種類 : {{ product.category }}
+          h5 種類 : {{   product.category   }}
       #productAction.d-flex.justify-start.align-center(style="width: 100%; height: 20%;")
         v-btn(color='black' size="x-large" prepend-icon='mdi-cart' @click='addCart({ product: product._id, quantity: 1 })') 加入購物車
     v-col.d-flex.justify-end.align-start(cols='1')
