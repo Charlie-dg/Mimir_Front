@@ -53,6 +53,7 @@ export const useUserStore = defineStore({
     },
     async logout() {
       try {
+        // console.log('Logout has ran')
         await apiAuth.delete('/users/logout')
         router.push('/')
         Swal.fire({
