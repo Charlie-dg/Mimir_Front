@@ -20,13 +20,13 @@
             th.text-center.text-h6 刪除
         tbody
           tr(v-if='users.length > 0' v-for='(user, idx) in users' :key='user._id')
-            td.text-center {{ idx + 1 }}
-            td.text-center {{ user.account }}
-            td.text-center {{ user.role }}
-            td.text-center {{ user.name }}
-            td.text-center {{ user.gender }}
-            td.text-center {{ user.email }}
-            td.text-center {{ user.phone }}
+            td.text-center {{   idx + 1   }}
+            td.text-center {{   user.account   }}
+            td.text-center {{   user.role   }}
+            td.text-center {{   user.name   }}
+            td.text-center {{   user.gender   }}
+            td.text-center {{   user.email   }}
+            td.text-center {{   user.phone   }}
             td
               v-row.justify-center.align-center
                 v-btn(@click="openDialog(user._id, idx)" style="width: 2rem; height: 2rem;" icon variant="text")
@@ -104,7 +104,7 @@ const rules = reactive({
   ],
   email: [
     v => !!v || '信箱必填',
-    v => isEmail(v) || '信箱格式錯誤'
+    // v => isEmail(v) || '信箱格式錯誤'
   ],
   name: [
     v => (v.length <= 10) || '名字必須 10 個字以下'

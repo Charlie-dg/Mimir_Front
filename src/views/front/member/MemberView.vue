@@ -8,23 +8,23 @@
       v-row
         v-tabs(v-model='tabs.tab' direction="vertical" color="primary")
           v-tab(v-for='item in userInfo' :value="item")
-            .text-h5.font-weight-bold {{   item   }}
+            .text-h5.font-weight-bold {{    item    }}
     v-col(cols='6')
       v-window(v-model='tabs.tab')
         v-window-item(:value="'會員資料'")
           v-row.justify-center
             v-col(cols='10')
-              .text-h5 帳號 : {{   account   }}
+              .text-h5 帳號 : {{    account    }}
             v-col(cols='10')
-              .text-h5 姓名 : {{   name   }}
+              .text-h5 姓名 : {{    name    }}
             v-col(cols='10')
-              .text-h5 性別 : {{   gender   }}
+              .text-h5 性別 : {{    gender    }}
             v-col(cols='10')
-              .text-h5 手機 : {{   phone   }}
+              .text-h5 手機 : {{    phone    }}
             v-col(cols='10')
-              .text-h5 信箱 : {{   email   }}
+              .text-h5 信箱 : {{    email    }}
             v-col(cols='10')
-              .text-h5 地址 : {{   address   }}
+              .text-h5 地址 : {{    address    }}
         //- v-window-item(:value="'訂單資料'")
         //-   v-row.justify-center(v-for='order in orders')
         //-     v-col(cols='10')
@@ -48,12 +48,13 @@ const tabs = reactive({
 })
 
 const user = useUserStore()
-const { account, name, gender, phone, email, address } = storeToRefs(user)
+const { getUser, account, name, gender, phone, email, address } = storeToRefs(user)
 
 const orders = reactive([])
 
 const init = async () => {
   try {
+    await user.getUser()
     const { data } = await apiAuth.get('/orders')
     orders.push(...data.result.map(order => {
       order.totalPrice = order.products.reduce((a, b) => {
