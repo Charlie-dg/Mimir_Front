@@ -24,11 +24,11 @@ v-navigation-drawer#cart(v-model='drawers' location='right' temporary style="wid
       v-col.d-flex.justify-center.align-center(cols='5')
         v-img(style="width: 100px; height: 100px;" :src='item.product.image')
       v-col(cols='5')
-        h3.text-center.my-2 {{ item.product.name }}
-        h4.text-center.my-2 ${{ item.product.price }}
+        h3.text-center.my-2 {{  item.product.name  }}
+        h4.text-center.my-2 ${{  item.product.price  }}
         v-row.justify-center.align-center.my-2
           v-btn(color='red' @click='updateCart(idx, item.quantity - 1)' variant="text") -
-          | {{ item.quantity }}
+          | {{  item.quantity  }}
           v-btn(color='green' @click='updateCart(idx, item.quantity + 1)' variant="text") +
       v-col.d-flex.justify-center.align-center(cols='2')
         v-btn(icon variant="text")
@@ -39,7 +39,7 @@ v-navigation-drawer#cart(v-model='drawers' location='right' temporary style="wid
   #cart_footer(style="width: 100%; height: 15%; position: fixed; top: 85%; right: 0;")
     v-row.justify-center.align-center.my-4
       h2 Total : $
-      h2.mx-1(style="color: green") {{ totalPirce }}
+      h2.mx-1(style="color: green") {{  totalPirce  }}
     v-row.justify-center.align-center.my-4
       v-btn(color='primary' width="80%" size="large" @click='user.checkout' :disabled='!canCheckout') 結帳
 v-btn(
@@ -54,7 +54,7 @@ v-btn(
 v-navigation-drawer#footer(location='bottom' expand-on-hover rail color="black" class="overflow-x-hidden")
   #sm.d-flex.justify-center.my-1
     v-btn(v-for='socialMedia in socialMedias' icon variant="text")
-      v-icon(style="font-size: large;") {{ socialMedia }}
+      v-icon(style="font-size: large;") {{  socialMedia  }}
   #footerInfo.d-flex.justify-center.align-center
     v-row.justify-center.align-center
       v-col.d-flex.justify-end.align-end(cols='6')
@@ -113,8 +113,10 @@ const updateCart = async (idx, quantity) => {
 
 const init = async () => {
   try {
-    const { data } = await apiAuth.get('/users/cart')
-    cart.push(...data.result)
+    if (isLogin) {
+      const { data } = await apiAuth.get('/users/cart')
+      cart.push(...data.result)
+    }
   } catch (error) {
     Swal.fire({
       icon: 'error',
