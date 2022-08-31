@@ -5,13 +5,13 @@ v-card.designer-card(elevation='10')
     v-avatar(size="300px")
       v-img(:src='designer.avatar')
   v-card-title.text-center.my-2
-    .text-h5.font-weight-bold {{  designer.name  }}
+    .text-h5.font-weight-bold {{     designer.name     }}
   v-card-text
     v-container
       v-row.justify-center.align-center
         v-col(cols='10')
           .text-h6.font-weight-bold.text-center 簡介:
-          .text-h6.font-weight-bold.text-center.my-2 {{  designer.description  }}
+          .text-h6.font-weight-bold.text-center.my-2 {{     designer.description     }}
       v-row.justify-center.align-center(style="height: 100px;")
         .text-h6.font-weight-bold.text-center.my-2 作品集:
       v-row.justify-center.align-center
@@ -22,7 +22,5 @@ v-card.designer-card(elevation='10')
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-
 defineProps(['designer'])
 </script>

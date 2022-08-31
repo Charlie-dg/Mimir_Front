@@ -105,10 +105,12 @@ export const useUserStore = defineStore({
     },
     async updateCart(data) {
       try {
+        console.log('updateCart: ')
+        console.log('data: ', data)
         await apiAuth.patch('/users/cart', data)
         return true
       } catch (error) {
-        console.log(error)
+        console.log('updateCart error: ', error)
         Swal.fire({
           icon: 'error',
           title: '失敗',

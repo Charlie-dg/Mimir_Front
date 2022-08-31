@@ -63,11 +63,11 @@ const router = createRouter({
           }
         },
         {
-          path: 'product/:id',
-          name: 'product',
-          component: () => import('@/views/front/ProductView.vue'),
+          path: 'cart',
+          name: 'cart',
+          component: () => import('@/views/front/CartView.vue'),
           meta: {
-            title: 'Mimir | 商品',
+            title: 'Mimir | 購物車',
             login: false,
             admin: false
           }
